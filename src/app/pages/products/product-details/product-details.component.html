@@ -1,0 +1,23 @@
+<button class="button-container" mat-fab [routerLink]="['../../product-list']">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+
+@let productDetails = productDetails$ | async;
+@if (productDetails) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ productDetails?.title ?? '' }} </mat-card-title>
+    </mat-card-header>
+    <br />
+    <img mat-card-image [src]="productDetails?.image" />
+    <mat-card-content>
+      <br />
+      <p>{{ productDetails?.description }}</p>
+      <div>Price: {{ productDetails?.price }}</div>
+      <div>Rating: {{ productDetails?.rating?.rate }}</div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="openUpdateProductDetailsDialog('0ms', '0ms', productDetails)" mat-raised-button>Update</button>
+    </mat-card-actions>
+  </mat-card>
+}

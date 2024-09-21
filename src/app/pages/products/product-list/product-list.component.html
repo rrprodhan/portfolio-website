@@ -1,0 +1,92 @@
+<div class="header">
+  <h1>Products</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Search by category</mat-label>
+    <input [formControl]="searchFormControl" matInput />
+  </mat-form-field>
+</div>
+
+@let productList = productList$ | async;
+
+<table [dataSource]="productList ?? []" class="bg-light" mat-table>
+  <ng-container matColumnDef="title">
+    <th *matHeaderCellDef mat-header-cell>
+      Title
+    </th>
+    <td *matCellDef="let element" mat-cell>
+      <a [routerLink]="['../product-list', element.id]">
+        {{element.title}}
+      </a>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="description">
+    <th *matHeaderCellDef mat-header-cell>
+      Description
+    </th>
+    <td *matCellDef="let element" mat-cell>
+      {{ element.description }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <th *matHeaderCellDef mat-header-cell>
+      Price
+    </th>
+    <td *matCellDef="let element" mat-cell>
+      {{ element.price }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th *matHeaderCellDef mat-header-cell>
+      Action
+    </th>
+    <td *matCellDef="let element" mat-cell>
+      <div class="action-buttons">
+        <mat-icon
+          (click)="deleteProduct(element.id)"
+          color="warn"
+          class="action-buttons action-icon material-symbols-outlined"
+        >
+          delete
+        </mat-icon>
+      </div>
+    </td>
+  </ng-container>
+  <tbody>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </tbody>
+</table>
+
+@if (productList?.length) {
+  <div class="container">
+    @for (product of productList; track product.id) {
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ product.title }} </mat-card-title>
+        </mat-card-header>
+        <br />
+        <img mat-card-image [src]="product.image" />
+        <mat-card-content>
+          <br />
+          <p>{{ product.description }}</p>
+          <div>Price: {{ product.price }}</div>
+          <div>Rating: {{ product?.rating?.rate }}</div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button [routerLink]="['../product-list', product.id]" mat-raised-button>
+            View Details
+          </button>
+          <button
+            color="warn"
+            (click)="deleteProduct(product.id)"
+            mat-raised-button
+          >
+            Delete
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+} @else {
+  <div style="display: flex; justify-content: center;">No products found.</div>
+}

@@ -1,0 +1,26 @@
+<div class="dialog-header">
+	<div mat-dialog-container
+		class="dialog-title">
+		<div mat-dialog-title>{{data.title}}</div>
+	</div>
+</div>
+<div mat-dialog-content>
+	<p>
+    {{ data.message }}
+  </p>
+</div>
+<div class="dialog-button-group" mat-dialog-actions>
+	<button [color]="data.button.ok.color"
+		(click)="onOkClick()"
+		class="dialog-button"
+		mat-raised-button>
+		{{data.button.ok.text}}
+	</button>
+	<button [color]="data.button.cancel.color"
+		(click)="onNoClick()"
+		class="dialog-button"
+		mat-raised-button
+    cdkFocusInitial>
+		{{data.button.cancel.text}}
+	</button>
+</div>

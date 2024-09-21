@@ -1,0 +1,57 @@
+<div>
+  <div mat-dialog-container>
+    <div mat-dialog-title>Update Product Details</div>
+  </div>
+  <mat-dialog-content>
+    <form
+      [formGroup]="updateProductDetailsForm"
+      (ngSubmit)="onSubmit()"
+      id="update-product-details-form"
+      enctype="multipart/form-data"
+      autocomplete="off"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="title" />
+        @if (updateProductDetailsForm.get('title')?.hasError('required')) {
+          <mat-error>
+            Field is required
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="description" />
+        @if (updateProductDetailsForm.get('description')?.hasError('required'))
+        {
+          <mat-error>
+            Field is required
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="number" formControlName="price" />
+        @if (updateProductDetailsForm.get('price')?.hasError('required')) {
+          <mat-error>
+            Field is required
+          </mat-error>
+        }
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+      [disabled]="!updateProductDetailsForm.valid"
+      mat-raised-button
+      type="submit"
+      form="update-product-details-form"
+      color="primary"
+    >
+      Submit
+    </button>
+    <button mat-raised-button color="accent" mat-dialog-close>
+      Close
+    </button>
+  </mat-dialog-actions>
+</div>
